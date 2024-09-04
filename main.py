@@ -1,6 +1,7 @@
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from constants import *
+import sys
 from player import Player
 import pygame
 
@@ -33,12 +34,18 @@ def main():
         for sprites in updatable:
             sprites.update(dt)
 
+        for objects in asteroids:
+            if objects.is_collision(player):
+                print("Game over!")
+                sys.exit()
+
         screen.fill("black")
 
         for sprites in drawable:
             sprites.draw(screen)
 
         pygame.display.flip()
+
 
         #limit frame rate to 60 fps
         dt = clock.tick(60)
