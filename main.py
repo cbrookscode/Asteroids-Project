@@ -37,10 +37,15 @@ def main():
         for sprites in updatable:
             sprites.update(dt)
 
-        for objects in asteroids:
-            if objects.is_collision(player):
+        for asteroid in asteroids:
+            if asteroid.is_collision(player):
                 print("Game over!")
                 sys.exit()
+
+            for shot in shots:
+                if shot.is_collision(asteroid):
+                    shot.kill()
+                    asteroid.split()
 
         screen.fill("black")
 
@@ -51,7 +56,7 @@ def main():
 
 
         #limit frame rate to 60 fps
-        dt = clock.tick(60)
+        dt = clock.tick(60) / 1000
 
 if __name__=="__main__":
     main()
